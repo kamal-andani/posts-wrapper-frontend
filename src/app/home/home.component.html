@@ -2,7 +2,7 @@
 
   <div class="row">
 
-     <div class="col-5">
+     <div class="col-lg-5">
       <div class="h3">Posts Query</div>
       <!-- Input fields -->
       <div class="row">
@@ -48,18 +48,18 @@
 
         </form>
         <div class="col-5 md-3 me-3">
-          <button class="btn btn-primary" type="button" (click)="getPosts()">Search</button>
+          <button class="btn btn-primary" type="button" (click)="getPosts()">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+            <span *ngIf="loading" role="status">Loading...</span>
+            <span *ngIf="!loading"> Search </span>
+          </button>
         </div>
-
       </div>
      </div>
-     <div class="col-5" style="height: 100%;">
+     <div class="col-lg-5">
       <!-- Area to display response -->
       <div class="h3 md-3 me-3">Response</div>
-      <div clas="scroll">
-
-        <pre> {{fetchedPosts | json}}</pre>
-      </div>
+      <app-responsetable [loadingTable]="loading" [fetchedPosts]="fetchedPosts"></app-responsetable>
      </div>
   </div>
 </div>

@@ -11,13 +11,19 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { ToastrModule } from 'ngx-toastr';
+import { ErrorInterceptor } from './_interceptor/error.interceptor';
+import { ResponsetableComponent } from './responsetable/responsetable.component';
+import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    ResponsetableComponent
   ],
   imports: [
     BrowserModule,
@@ -30,10 +36,14 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatRadioModule,
     FormsModule,
     HttpClientModule,
-    MatGridListModule
-
+    MatGridListModule,
+    ToastrModule.forRoot(),
+    MatTableModule,
+    MatPaginatorModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

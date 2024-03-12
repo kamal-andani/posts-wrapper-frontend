@@ -3,7 +3,8 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { KeyValue } from '@angular/common';
 import { PostsService } from '../_services/posts.service';
-import { postsQuery } from '../_models/posts';
+import { PostResponseModel, postsQuery } from '../_models/posts';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,10 +12,11 @@ import { postsQuery } from '../_models/posts';
 })
 export class HomeComponent {
 
-  fetchedPosts: any = {};
+  fetchedPosts: PostResponseModel = { };
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   tags: string[] = [];
+  loading:boolean = false;
 
   sortByField: KeyValue<string,string>[] = [
     {key:'Id', value: 'id'},
@@ -36,7 +38,7 @@ export class HomeComponent {
   }
 
 
-  constructor(private postService: PostsService) {
+  constructor(private postService: PostsService, private toastr: ToastrService) {
 
   }
   // Tag chips related functions
@@ -70,12 +72,18 @@ export class HomeComponent {
     this.queryData.sortBy = this.selectedSortByField;
     this.queryData.direction = this.selectedSortDirection;
 
-    console.log(this.queryData)
+    this.loading = true;
     this.postService.fetchPosts(this.queryData).subscribe({
       next: response => {
         this.fetchedPosts = response;
+        this.toastr.success("Posts retrieved successfully");
+        this.loading = false;
       },
-      error: err => {console.log("Error retrieving posts", err); this.fetchedPosts=err.error}
+      error: err => {
+        console.log("Error retrieving posts", err);
+        this.fetchedPosts=err.error;
+        this.loading = false;
+      }
     });
   }
 
