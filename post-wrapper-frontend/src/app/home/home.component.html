@@ -1,52 +1,65 @@
-<div class="container mt-3">
-  <div class="h3">Posts</div>
+<div class="container-fluid mt-3">
+
   <div class="row">
-    <form class="d-flex" searchPostsForm="ngForm" autocomplete="off">
-      <div class="col-4 md-3 me-3">
-        <!-- Tags input as Angular Material Chips -->
-          <mat-form-field class="tag-list">
-            <mat-label>Type tags to filter posts</mat-label>
-            <mat-chip-grid #chipGrid aria-label="Enter Tags">
-              <mat-chip-row *ngFor="let tag of tags"
-                            (removed)="removeTag(tag)"
-                            [aria-description]="'press enter to edit ' + tag">
-                {{tag}}
-                <button matChipRemove [attr.aria-label]="'remove ' + tag">
-                  <mat-icon>cancel</mat-icon>
-                </button>
-              </mat-chip-row>
-              <input placeholder="New Tag ..."
-                     [matChipInputFor]="chipGrid"
-                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                     [matChipInputAddOnBlur]="addOnBlur"
-                     (matChipInputTokenEnd)="addTag($event)"/>
-            </mat-chip-grid>
-          </mat-form-field>
-      </div>
-      <div class="col-3 md-3 me-3">
-        <!-- Dropdown to select sortBy field -->
-        <mat-form-field>
-          <mat-label>Sort posts by</mat-label>
-          <mat-select [(value)]="selectedSortByField">
-            <mat-option *ngFor="let sortBy of sortByField" [value]="sortBy.value">
-              {{sortBy.key}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-2 md-3 me-3">
-        <mat-label id="radio-button-group-label">Select sorting order</mat-label>
-        <mat-radio-group name="radiogroup" class="radio-group" aria-labelledby="radio-button-group-label" [(ngModel)]="selectedSortDirection">
-          <mat-radio-button *ngFor="let direction of sortDirections" [value]="direction.value">{{direction.key}}</mat-radio-button>
-        </mat-radio-group>
-      </div>
 
-    </form>
-    <div class="col-5 md-3 me-3">
-      <button class="btn btn-primary" type="button" (click)="getPosts()">Search</button>
-    </div>
+     <div class="col-5">
+      <div class="h3">Posts Query</div>
+      <!-- Input fields -->
+      <div class="row">
+        <form class="" searchPostsForm="ngForm" autocomplete="off">
+          <div class="md-3 me-3">
+            <!-- Tags input as Angular Material Chips -->
+              <mat-form-field class="tag-list">
+                <mat-label>Type tags to filter posts</mat-label>
+                <mat-chip-grid #chipGrid aria-label="Enter Tags">
+                  <mat-chip-row *ngFor="let tag of tags"
+                                (removed)="removeTag(tag)"
+                                [aria-description]="'press enter to edit ' + tag">
+                    {{tag}}
+                    <button matChipRemove [attr.aria-label]="'remove ' + tag">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+                  <input placeholder="New Tag ..."
+                         [matChipInputFor]="chipGrid"
+                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                         [matChipInputAddOnBlur]="addOnBlur"
+                         (matChipInputTokenEnd)="addTag($event)"/>
+                </mat-chip-grid>
+              </mat-form-field>
+          </div>
+          <div class="md-3 me-3">
+            <!-- Dropdown to select sortBy field -->
+            <mat-form-field>
+              <mat-label>Sort posts by</mat-label>
+              <mat-select [(value)]="selectedSortByField">
+                <mat-option *ngFor="let sortBy of sortByField" [value]="sortBy.value">
+                  {{sortBy.key}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="md-3 me-3">
+            <mat-label id="radio-button-group-label">Select sorting order</mat-label>
+            <mat-radio-group name="radiogroup" class="radio-group" aria-labelledby="radio-button-group-label" [(ngModel)]="selectedSortDirection">
+              <mat-radio-button *ngFor="let direction of sortDirections" [value]="direction.value">{{direction.key}}</mat-radio-button>
+            </mat-radio-group>
+          </div>
 
+        </form>
+        <div class="col-5 md-3 me-3">
+          <button class="btn btn-primary" type="button" (click)="getPosts()">Search</button>
+        </div>
+
+      </div>
+     </div>
+     <div class="col-5" style="height: 100%;">
+      <!-- Area to display response -->
+      <div class="h3 md-3 me-3">Response</div>
+      <div clas="scroll">
+
+        <pre> {{fetchedPosts | json}}</pre>
+      </div>
+     </div>
   </div>
-
-
 </div>

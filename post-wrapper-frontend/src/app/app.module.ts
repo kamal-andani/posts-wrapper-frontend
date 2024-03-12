@@ -11,7 +11,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     MatSelectModule,
     MatRadioModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    MatGridListModule
 
   ],
   providers: [],

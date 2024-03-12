@@ -10,3 +10,11 @@
   display: inline-flex;
   flex-direction: row;
 }
+div.scroll {
+  /* width: 600px;
+  height: 150px; */
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: center;
+  padding: 20px;
+}

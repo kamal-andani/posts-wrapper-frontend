@@ -2,7 +2,8 @@ import {Component} from '@angular/core';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { KeyValue } from '@angular/common';
-
+import { PostsService } from '../_services/posts.service';
+import { postsQuery } from '../_models/posts';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -10,6 +11,7 @@ import { KeyValue } from '@angular/common';
 })
 export class HomeComponent {
 
+  fetchedPosts: any = {};
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   tags: string[] = [];
@@ -27,7 +29,16 @@ export class HomeComponent {
 
   selectedSortByField: string = this.sortByField[0].value;
   selectedSortDirection: string = this.sortDirections[0].value;
+  queryData: postsQuery =  {
+    tags: this.tags.toString(),
+    sortBy: this.selectedSortByField,
+    direction: this.selectedSortDirection
+  }
 
+
+  constructor(private postService: PostsService) {
+
+  }
   // Tag chips related functions
 
   addTag(event: MatChipInputEvent): void {
@@ -54,7 +65,18 @@ export class HomeComponent {
   // Get required posts based on inputs
   getPosts(){
 
-    // TODO: call service
+    // construct query data
+    this.queryData.tags = this.tags.toString();
+    this.queryData.sortBy = this.selectedSortByField;
+    this.queryData.direction = this.selectedSortDirection;
+
+    console.log(this.queryData)
+    this.postService.fetchPosts(this.queryData).subscribe({
+      next: response => {
+        this.fetchedPosts = response;
+      },
+      error: err => {console.log("Error retrieving posts", err); this.fetchedPosts=err.error}
+    });
   }
 
 }
