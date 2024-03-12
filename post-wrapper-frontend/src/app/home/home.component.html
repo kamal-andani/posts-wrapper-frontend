@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="h3">Posts</div>
+  <div class="row">
+    <form searchPostsForm="ngForm" autocomplete="off">
+      <div class="col-4">
+        <!-- Tags input as Angular Material Chips -->
+        <ng-container>
+          <mat-form-field class="tag-list">
+            <mat-label>Type tags to filter posts</mat-label>
+            <mat-chip-grid #chipGrid aria-label="Enter Tags">
+              <mat-chip-row *ngFor="let tag of tags"
+                            (removed)="removeTag(tag)"
+                            [aria-description]="'press enter to edit ' + tag">
+                {{tag}}
+                <button matChipRemove [attr.aria-label]="'remove ' + tag">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip-row>
+              <input placeholder="New Tag ..."
+                     [matChipInputFor]="chipGrid"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="addOnBlur"
+                     (matChipInputTokenEnd)="addTag($event)"/>
+            </mat-chip-grid>
+          </mat-form-field>
+        </ng-container>
+      </div>
+
+    </form>
+    <div class="col-3">
+      <button class="btn btn-primary" type="button" (click)="getPosts()">Search</button>
+    </div>
+
+  </div>
+
+
+</div>
