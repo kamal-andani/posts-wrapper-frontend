@@ -1,10 +1,9 @@
-<div class="container">
+<div class="container mt-3">
   <div class="h3">Posts</div>
   <div class="row">
-    <form searchPostsForm="ngForm" autocomplete="off">
-      <div class="col-4">
+    <form class="d-flex" searchPostsForm="ngForm" autocomplete="off">
+      <div class="col-4 md-3 me-3">
         <!-- Tags input as Angular Material Chips -->
-        <ng-container>
           <mat-form-field class="tag-list">
             <mat-label>Type tags to filter posts</mat-label>
             <mat-chip-grid #chipGrid aria-label="Enter Tags">
@@ -23,11 +22,27 @@
                      (matChipInputTokenEnd)="addTag($event)"/>
             </mat-chip-grid>
           </mat-form-field>
-        </ng-container>
+      </div>
+      <div class="col-3 md-3 me-3">
+        <!-- Dropdown to select sortBy field -->
+        <mat-form-field>
+          <mat-label>Sort posts by</mat-label>
+          <mat-select [(value)]="selectedSortByField">
+            <mat-option *ngFor="let sortBy of sortByField" [value]="sortBy.value">
+              {{sortBy.key}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-2 md-3 me-3">
+        <mat-label id="radio-button-group-label">Select sorting order</mat-label>
+        <mat-radio-group name="radiogroup" class="radio-group" aria-labelledby="radio-button-group-label" [(ngModel)]="selectedSortDirection">
+          <mat-radio-button *ngFor="let direction of sortDirections" [value]="direction.value">{{direction.key}}</mat-radio-button>
+        </mat-radio-group>
       </div>
 
     </form>
-    <div class="col-3">
+    <div class="col-5 md-3 me-3">
       <button class="btn btn-primary" type="button" (click)="getPosts()">Search</button>
     </div>
 

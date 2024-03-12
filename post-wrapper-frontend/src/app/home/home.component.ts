@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
+import { KeyValue } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -9,11 +10,25 @@ import {MatChipInputEvent} from '@angular/material/chips';
 })
 export class HomeComponent {
 
-  // Tag chips related functions
-
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   tags: string[] = [];
+
+  sortByField: KeyValue<string,string>[] = [
+    {key:'Id', value: 'id'},
+    {key:'Reads', value: 'reads'},
+    {key:'Likes', value: 'likes'},
+    {key:'Popularity', value: 'popularity'},
+  ];
+  sortDirections: KeyValue<string,string>[] = [
+    {key: 'Ascending', value: 'asc'},
+    {key: 'Descending', value: 'desc'},
+  ] ;
+
+  selectedSortByField: string = this.sortByField[0].value;
+  selectedSortDirection: string = this.sortDirections[0].value;
+
+  // Tag chips related functions
 
   addTag(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
@@ -36,8 +51,10 @@ export class HomeComponent {
     }
   }
 
+  // Get required posts based on inputs
   getPosts(){
-    console.log(this.tags);
+
+    // TODO: call service
   }
 
 }

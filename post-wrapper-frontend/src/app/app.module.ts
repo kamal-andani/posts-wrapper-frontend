@@ -8,6 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
+import {MatRadioModule} from '@angular/material/radio';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -21,6 +25,9 @@ import {MatIconModule} from '@angular/material/icon';
     MatChipsModule,
     MatFormFieldModule,
     MatIconModule,
+    MatSelectModule,
+    MatRadioModule,
+    FormsModule
 
   ],
   providers: [],
