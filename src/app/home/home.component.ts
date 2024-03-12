@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {COMMA, ENTER, F} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { KeyValue } from '@angular/common';
 import { PostsService } from '../_services/posts.service';
@@ -16,6 +16,7 @@ export class HomeComponent {
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   tags: string[] = [];
+  loading:boolean = false;
 
   sortByField: KeyValue<string,string>[] = [
     {key:'Id', value: 'id'},
@@ -71,12 +72,18 @@ export class HomeComponent {
     this.queryData.sortBy = this.selectedSortByField;
     this.queryData.direction = this.selectedSortDirection;
 
+    this.loading = true;
     this.postService.fetchPosts(this.queryData).subscribe({
       next: response => {
         this.fetchedPosts = response;
         this.toastr.success("Posts retrieved successfully");
+        this.loading = false;
       },
-      error: err => {console.log("Error retrieving posts", err); this.fetchedPosts=err.error}
+      error: err => {
+        console.log("Error retrieving posts", err);
+        this.fetchedPosts=err.error;
+        this.loading = false;
+      }
     });
   }
 
