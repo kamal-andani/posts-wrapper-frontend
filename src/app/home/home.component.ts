@@ -3,7 +3,7 @@ import {COMMA, ENTER, F} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { KeyValue } from '@angular/common';
 import { PostsService } from '../_services/posts.service';
-import { postsQuery } from '../_models/posts';
+import { PostResponseModel, postsQuery } from '../_models/posts';
 import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-home',
@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HomeComponent {
 
-  fetchedPosts: any = {};
+  fetchedPosts: PostResponseModel = { };
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   tags: string[] = [];

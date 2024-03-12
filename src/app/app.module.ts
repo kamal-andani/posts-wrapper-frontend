@@ -15,12 +15,15 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { ToastrModule } from 'ngx-toastr';
 import { ErrorInterceptor } from './_interceptor/error.interceptor';
-
+import { ResponsetableComponent } from './responsetable/responsetable.component';
+import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    ResponsetableComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,8 @@ import { ErrorInterceptor } from './_interceptor/error.interceptor';
     HttpClientModule,
     MatGridListModule,
     ToastrModule.forRoot(),
-
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi:true}

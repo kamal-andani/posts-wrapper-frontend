@@ -2,7 +2,7 @@
 
   <div class="row">
 
-     <div class="col-5">
+     <div class="col-lg-5">
       <div class="h3">Posts Query</div>
       <!-- Input fields -->
       <div class="row">
@@ -56,13 +56,13 @@
         </div>
       </div>
      </div>
-     <div class="col-5" style="height: 100%;">
+     <div class="col-lg-5">
       <!-- Area to display response -->
       <div class="h3 md-3 me-3">Response</div>
-      <div clas="scroll">
-
+      <!-- <div clas="scroll">
         <pre> {{fetchedPosts | json}}</pre>
-      </div>
+      </div> -->
+      <app-responsetable [loadingTable]="loading" [fetchedPosts]="fetchedPosts"></app-responsetable>
      </div>
   </div>
 </div>
