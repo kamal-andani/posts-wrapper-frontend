@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {COMMA, ENTER, F} from '@angular/cdk/keycodes';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { KeyValue } from '@angular/common';
 import { PostsService } from '../_services/posts.service';
