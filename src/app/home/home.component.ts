@@ -4,6 +4,7 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import { KeyValue } from '@angular/common';
 import { PostsService } from '../_services/posts.service';
 import { postsQuery } from '../_models/posts';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -36,7 +37,7 @@ export class HomeComponent {
   }
 
 
-  constructor(private postService: PostsService) {
+  constructor(private postService: PostsService, private toastr: ToastrService) {
 
   }
   // Tag chips related functions
@@ -70,10 +71,10 @@ export class HomeComponent {
     this.queryData.sortBy = this.selectedSortByField;
     this.queryData.direction = this.selectedSortDirection;
 
-    console.log(this.queryData)
     this.postService.fetchPosts(this.queryData).subscribe({
       next: response => {
         this.fetchedPosts = response;
+        this.toastr.success("Posts retrieved successfully");
       },
       error: err => {console.log("Error retrieving posts", err); this.fetchedPosts=err.error}
     });

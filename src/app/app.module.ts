@@ -11,8 +11,11 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { ToastrModule } from 'ngx-toastr';
+import { ErrorInterceptor } from './_interceptor/error.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -30,10 +33,13 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatRadioModule,
     FormsModule,
     HttpClientModule,
-    MatGridListModule
+    MatGridListModule,
+    ToastrModule.forRoot(),
 
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
